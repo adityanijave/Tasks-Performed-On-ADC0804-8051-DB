@@ -1,0 +1,5 @@
+".\Objects\STARTUP.obj",
+".\Objects\delay.obj",
+".\Objects\ADC_7Segment_combo.obj" 
+TO ".\Objects\ADC_7Segment_Basic" 
+PRINT(".\Listings\ADC_7Segment_Basic.m51")

@@ -1,0 +1,117 @@
+C51 COMPILER V9.59.0.0   ADC_7SEGMENET_BASIC_MAIN                                          11/24/2023 09:45:08 PAGE 1   
+
+
+C51 COMPILER V9.59.0.0, COMPILATION OF MODULE ADC_7SEGMENET_BASIC_MAIN
+OBJECT MODULE PLACED IN .\Objects\ADC_7Segmenet_basic_main.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE ADC_7Segmenet_basic_main.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND P
+                    -RINT(.\Listings\ADC_7Segmenet_basic_main.lst) TABS(2) OBJECT(.\Objects\ADC_7Segmenet_basic_main.obj)
+
+line level    source
+
+   1          //including header files
+   2          #include<reg51.h>
+   3          #include"delay.h"
+   4          
+   5          //micro define
+   6          #define ADC_port P2                                                                     //adc port = P2 = 0x0A
+   7          #define segmenet_port P3                                                                //segment port = P3 = 0xB0
+   8          
+   9          //sbit decleration
+  10          //for adc
+  11          sbit Rd = P1^3;                                                                         //read pin
+  12          sbit Wr = P1^4;                                                                         //write/read pin
+  13          sbit INTR = P1^5;                                                                       //intr pin
+  14          //for 7-segment
+  15          sbit digit1 = P1^0;                                                                     //for hunderds place segment
+  16          sbit digit2 = P1^1;                                                                     //for tens place segment
+  17          sbit digit3 = P1^2;                                                                     //for units place segment
+  18          
+  19          
+  20          //forward decleration of user defined funcation
+  21          void ADC_read();                                                                        //proto-type of adc read funcation which reads the adc
+             - values
+  22          void Segment_Display(unsigned char);                                                      //proto-type of segment display funcation u
+             -sed to display adc value
+  23          
+  24          //main funcaiton
+  25          void main()
+  26          {
+  27   1        //decleration of local variables
+  28   1        unsigned char ADC_value;
+  29   1        
+  30   1        //forever loop
+  31   1        while(1)                                                                              //or we can use for(;;)
+  32   1        {
+  33   2          ADC_read();                                                                         //calling funcation to read adc values
+  34   2          ADC_value = ADC_port;                                                               //data is resived at variable ADC_value
+  35   2          Segment_Display(ADC_value);                                                         //calling funcation to show adc values on segmen
+             -ts
+  36   2        }
+  37   1      }
+  38          
+  39          //funcation defination of user defined funcations
+  40          void ADC_read()                                                                         //funcation used to read adc values
+  41          {
+  42   1          Rd = 1;                                                                             //read pin is high (pluse start)
+  43   1          Wr = 0;                                                                             //write pin is low (pluse start)
+  44   1          
+  45   1          delay(1);                                                                           //calling delay funcation to generate pluse
+  46   1          
+  47   1          Wr = 1;                                                                             //write pin is high (pluse end)
+  48   1          while(INTR == 1);                                                                   //this loop will be terminate when INTR becomes 0
+  49   1          
+  50   1          Rd = 0;                                                                             //read pin is low (pluse end)
+  51   1      }
+C51 COMPILER V9.59.0.0   ADC_7SEGMENET_BASIC_MAIN                                          11/24/2023 09:45:08 PAGE 2   
+
+  52          
+  53          void Segment_Display(unsigned char ADC_value)                                           //funcation used to display adc value o
+             -n segments
+  54          {
+  55   1        //array contains hex values from 0 to 9 digits
+  56   1        unsigned int segmenet_array[10] = {0x3F, 0x06, 0x5B, 0x4F, 0x66, 0x6D, 0x7D, 0x07, 0x7F, 0x6F}; 
+  57   1        
+  58   1        //decleration of variable inside the funcation
+  59   1        unsigned int i;
+  60   1        
+  61   1        //for loop to reduce the filkering effect
+  62   1        for(i = 0; i < 50; i++)
+  63   1        {
+  64   2          //for hundered place digit
+  65   2          segmenet_port = segmenet_array[(ADC_value / 100)];
+  66   2          digit1 = 1;                                                                         //hundered place digit segment is ON
+  67   2          digit2 = 0;                                                                         //tens place digit segment is OFF
+  68   2          digit3 = 0;                                                                         //units place digit segment is OFF
+  69   2          
+  70   2          delay(1);                                                                           //calling delay funcation with one
+  71   2          
+  72   2          segmenet_port = segmenet_array[((ADC_value / 10) % 10)];
+  73   2          digit1 = 0;                                                                         //hundered place digit segment is OFF
+  74   2          digit2 = 1;                                                                         //hundered place digit segment is ON
+  75   2          digit3 = 0;                                                                         //hundered place digit segment is OFF
+  76   2          
+  77   2          delay(1);                                                                           //calling delay funcation with one
+  78   2          
+  79   2          
+  80   2          segmenet_port = segmenet_array[(ADC_value % 10)];
+  81   2          digit1 = 0;                                                                         //hundered place digit segment is OFF
+  82   2          digit2 = 0;                                                                         //hundered place digit segment is OFF
+  83   2          digit3 = 1;                                                                         //hundered place digit segment is ON
+  84   2          
+  85   2          delay(1);                                                                           //calling delay funcation with one
+  86   2        }
+  87   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    168    ----
+   CONSTANT SIZE    =     20    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----      24
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,76 @@
+C51 COMPILER V9.59.0.0   ADC_4BIT_LCD_MAIN_COMBO                                           11/08/2023 09:30:10 PAGE 1   
+
+
+C51 COMPILER V9.59.0.0, COMPILATION OF MODULE ADC_4BIT_LCD_MAIN_COMBO
+OBJECT MODULE PLACED IN .\Objects\ADC_4bit_LCD_main_combo.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE ADC_4bit_LCD_main_combo.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PR
+                    -INT(.\Listings\ADC_4bit_LCD_main_combo.lst) TABS(2) OBJECT(.\Objects\ADC_4bit_LCD_main_combo.obj)
+
+line level    source
+
+   1          //including required libs
+   2          #include<reg51.h>
+   3          #include"lcd.h"
+   4          #include"delay.h"
+   5          
+   6          //micro decleration
+   7          #define ADC_port P2;
+   8          
+   9          //special function register
+  10          //sfr ADC_port = 0xA0;
+  11          
+  12          //sbit decleration
+  13          sbit Rd   = P1^3;                         //Read pin
+  14          sbit Wr   = P1^4;                         //write pin
+  15          sbit INTR = P1^5;                         //INTR pin
+  16          
+  17          void main()                               //main function (1time exe.able)
+  18          {
+  19   1        unsigned char ADC_value;                //ADC_value variable req. for ADC_port
+  20   1        init();                                 //calling init() function to activate the LCD
+  21   1        LCD_cmd(0x80);                          //calling LCD_cmd function row-1, col-0
+  22   1        LCD_string("ADC = ");                   //calling LCD_string function 
+  23   1        LCD_cmd(0x89);                          //calling LCD_cmd function row-1, col-9
+  24   1        LCD_data(0xDF);                         //calling LCD_data function with the hex value of degree symbol
+  25   1        LCD_data('C');                          //calling LCD_data function with 'C' argument
+  26   1        
+  27   1        LCD_cmd(0xC0);
+  28   1        LCD_string("ADITYA A NIJAVE");
+  29   1        
+  30   1        while(1)                                //forever loop (or we can use for(;;))
+  31   1        {
+  32   2          Rd = 1;                               //Read pin is high
+  33   2          Wr = 0;                               //Write pin is low
+  34   2          delay(1);                             //calling delay function which is used here to create pluse
+  35   2          Wr = 1;                               //Write pin is high
+  36   2          while(INTR == 1);                     //if INTR pin is 1 then conversion is in process and if INTR is 0 then conve
+             -rsion is complate
+  37   2          Rd = 0;                               //Read pin is low
+  38   2          
+  39   2          ADC_value = ADC_port;                 //assigning the value of ADC_port to ADC_value variable (who's range is fr
+             -om 0 to 255)
+  40   2          
+  41   2          LCD_cmd(0x86);                        //calling LCD_cmd function row-1, col-6
+  42   2          LCD_data((ADC_value / 100) + 48);     //calling LCD_data function to pass hundereds place integer 
+  43   2          LCD_data(((ADC_value/10)%10)+48);     //calling LCD_data function to pass tens place integer
+  44   2          LCD_data((ADC_value % 10) + 48);      //calling LCD_data function to pass units place integer
+  45   2        }
+  46   1      }
+  47          
+  48          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    118    ----
+C51 COMPILER V9.59.0.0   ADC_4BIT_LCD_MAIN_COMBO                                           11/08/2023 09:30:10 PAGE 2   
+
+   CONSTANT SIZE    =     23    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----       1
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

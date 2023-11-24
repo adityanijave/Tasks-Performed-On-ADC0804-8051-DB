@@ -1,0 +1,211 @@
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                    11/24/2023  09:45:08  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22.2.0, INVOKED BY:
+C:\KEIL_V5\C51\BIN\BL51.EXE .\Objects\STARTUP.obj, .\Objects\ADC_7Segmenet_basic_main.obj, .\Objects\delay.obj TO .\Obje
+>> cts\ADC_7Segmenet_basic PRINT (.\Listings\ADC_7Segmenet_basic.m51)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  .\Objects\STARTUP.obj (?C_STARTUP)
+  .\Objects\ADC_7Segmenet_basic_main.obj (ADC_7SEGMENET_BASIC_MAIN)
+  .\Objects\delay.obj (DELAY)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C?COPY)
+
+
+LINK MAP OF MODULE:  .\Objects\ADC_7Segmenet_basic (?C_STARTUP)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     0018H     UNIT         _DATA_GROUP_
+            IDATA   0020H     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+                    0003H     07FDH                  *** GAP ***
+            CODE    0800H     00F6H     UNIT         ?C?LIB_CODE
+            CODE    08F6H     0088H     UNIT         ?PR?_SEGMENT_DISPLAY?ADC_7SEGMENET_BASIC_MAIN
+            CODE    097EH     0020H     UNIT         ?PR?_DELAY?DELAY
+            CODE    099EH     0014H     UNIT         ?CO?ADC_7SEGMENET_BASIC_MAIN
+            CODE    09B2H     0013H     UNIT         ?PR?ADC_READ?ADC_7SEGMENET_BASIC_MAIN
+            CODE    09C5H     000DH     UNIT         ?PR?MAIN?ADC_7SEGMENET_BASIC_MAIN
+            CODE    09D2H     000CH     UNIT         ?C_C51STARTUP
+
+
+
+OVERLAY MAP OF MODULE:   .\Objects\ADC_7Segmenet_basic (?C_STARTUP)
+
+
+SEGMENT                                            DATA_GROUP 
+  +--> CALLED SEGMENT                            START    LENGTH
+----------------------------------------------------------------
+?C_C51STARTUP                                    -----    -----
+  +--> ?PR?MAIN?ADC_7SEGMENET_BASIC_MAIN
+
+?PR?MAIN?ADC_7SEGMENET_BASIC_MAIN                0008H    0001H
+  +--> ?PR?ADC_READ?ADC_7SEGMENET_BASIC_MAIN
+  +--> ?PR?_SEGMENT_DISPLAY?ADC_7SEGMENET_BA...
+
+?PR?ADC_READ?ADC_7SEGMENET_BASIC_MAIN            -----    -----
+  +--> ?PR?_DELAY?DELAY
+
+?PR?_SEGMENT_DISPLAY?ADC_7SEGMENET_BA...         0009H    0017H
+  +--> ?CO?ADC_7SEGMENET_BASIC_MAIN
+  +--> ?PR?_DELAY?DELAY
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  11/24/2023  09:45:08  PAGE 2
+
+
+
+
+
+SYMBOL TABLE OF MODULE:  .\Objects\ADC_7Segmenet_basic (?C_STARTUP)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        ?C_STARTUP
+  C:09D2H         SEGMENT       ?C_C51STARTUP
+  I:0020H         SEGMENT       ?STACK
+  C:0000H         PUBLIC        ?C_STARTUP
+  D:00E0H         SYMBOL        ACC
+  D:00F0H         SYMBOL        B
+  D:0083H         SYMBOL        DPH
+  D:0082H         SYMBOL        DPL
+  N:0000H         SYMBOL        IBPSTACK
+  N:0100H         SYMBOL        IBPSTACKTOP
+  N:0080H         SYMBOL        IDATALEN
+  C:09D5H         SYMBOL        IDATALOOP
+  N:0000H         SYMBOL        PBPSTACK
+  N:0100H         SYMBOL        PBPSTACKTOP
+  N:0000H         SYMBOL        PDATALEN
+  N:0000H         SYMBOL        PDATASTART
+  N:0000H         SYMBOL        PPAGE
+  N:0000H         SYMBOL        PPAGEENABLE
+  D:00A0H         SYMBOL        PPAGE_SFR
+  D:0081H         SYMBOL        SP
+  C:09D2H         SYMBOL        STARTUP1
+  N:0000H         SYMBOL        XBPSTACK
+  N:0000H         SYMBOL        XBPSTACKTOP
+  N:0000H         SYMBOL        XDATALEN
+  N:0000H         SYMBOL        XDATASTART
+  C:0000H         LINE#         126
+  C:09D2H         LINE#         133
+  C:09D4H         LINE#         134
+  C:09D5H         LINE#         135
+  C:09D6H         LINE#         136
+  C:09D8H         LINE#         185
+  C:09DBH         LINE#         196
+  -------         ENDMOD        ?C_STARTUP
+
+  -------         MODULE        ADC_7SEGMENET_BASIC_MAIN
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0090H         PUBLIC        P1
+  D:00A0H         PUBLIC        P2
+  D:00B0H         PUBLIC        P3
+  C:08F6H         PUBLIC        _Segment_Display
+  C:09C5H         PUBLIC        main
+  B:0090H.3       PUBLIC        Rd
+  B:0090H.5       PUBLIC        INTR
+  C:099EH         SYMBOL        _?ix1000
+  B:0090H.0       PUBLIC        digit1
+  B:0090H.1       PUBLIC        digit2
+  C:09B2H         PUBLIC        ADC_read
+  B:0090H.2       PUBLIC        digit3
+  B:0090H.4       PUBLIC        Wr
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  11/24/2023  09:45:08  PAGE 3
+
+
+  -------         PROC          MAIN
+  -------         DO            
+  D:0008H         SYMBOL        ADC_value
+  -------         ENDDO         
+  C:09C5H         LINE#         25
+  C:09C5H         LINE#         26
+  C:09C5H         LINE#         31
+  C:09C5H         LINE#         32
+  C:09C5H         LINE#         33
+  C:09C8H         LINE#         34
+  C:09CBH         LINE#         35
+  C:09D0H         LINE#         36
+  -------         ENDPROC       MAIN
+  -------         PROC          ADC_READ
+  C:09B2H         LINE#         40
+  C:09B2H         LINE#         41
+  C:09B2H         LINE#         42
+  C:09B4H         LINE#         43
+  C:09B6H         LINE#         45
+  C:09BDH         LINE#         47
+  C:09BFH         LINE#         48
+  C:09C2H         LINE#         50
+  C:09C4H         LINE#         51
+  -------         ENDPROC       ADC_READ
+  -------         PROC          _SEGMENT_DISPLAY
+  D:0009H         SYMBOL        ADC_value
+  -------         DO            
+  D:000AH         SYMBOL        segmenet_array
+  D:001EH         SYMBOL        i
+  -------         ENDDO         
+  C:08F6H         LINE#         53
+  C:08F8H         LINE#         54
+  C:08F8H         LINE#         56
+  C:090BH         LINE#         62
+  C:0910H         LINE#         63
+  C:0910H         LINE#         65
+  C:091FH         LINE#         66
+  C:0921H         LINE#         67
+  C:0923H         LINE#         68
+  C:0925H         LINE#         70
+  C:092CH         LINE#         72
+  C:0941H         LINE#         73
+  C:0943H         LINE#         74
+  C:0945H         LINE#         75
+  C:0947H         LINE#         77
+  C:094EH         LINE#         80
+  C:095FH         LINE#         81
+  C:0961H         LINE#         82
+  C:0963H         LINE#         83
+  C:0965H         LINE#         85
+  C:096CH         LINE#         86
+  C:097DH         LINE#         87
+  -------         ENDPROC       _SEGMENT_DISPLAY
+  -------         ENDMOD        ADC_7SEGMENET_BASIC_MAIN
+
+  -------         MODULE        DELAY
+  C:0000H         SYMBOL        _ICE_DUMMY_
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  11/24/2023  09:45:08  PAGE 4
+
+
+  C:097EH         PUBLIC        _delay
+  -------         PROC          _DELAY
+  D:0006H         SYMBOL        time
+  -------         DO            
+  D:0004H         SYMBOL        i
+  D:0002H         SYMBOL        j
+  -------         ENDDO         
+  C:097EH         LINE#         4
+  C:097EH         LINE#         5
+  C:097EH         LINE#         8
+  C:0988H         LINE#         9
+  C:0988H         LINE#         10
+  C:0996H         LINE#         11
+  C:099DH         LINE#         12
+  -------         ENDPROC       _DELAY
+  -------         ENDMOD        DELAY
+
+  -------         MODULE        ?C?COPY
+  C:08D0H         PUBLIC        ?C?COPY
+  -------         ENDMOD        ?C?COPY
+
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 00EBH BYTE (11%) *
+******************************************************************************
+
+Program Size: data=33.0 xdata=0 code=481
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

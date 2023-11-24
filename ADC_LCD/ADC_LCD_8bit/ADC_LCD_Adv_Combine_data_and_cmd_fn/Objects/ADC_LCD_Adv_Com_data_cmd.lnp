@@ -1,0 +1,7 @@
+".\Objects\STARTUP.obj",
+".\Objects\adc.obj",
+".\Objects\ADC_LCD_main.obj",
+".\Objects\delay.obj",
+".\Objects\lcd.obj" 
+TO ".\Objects\ADC_LCD_Adv_Com_data_cmd" 
+PRINT(".\Listings\ADC_LCD_Adv_Com_data_cmd.m51")

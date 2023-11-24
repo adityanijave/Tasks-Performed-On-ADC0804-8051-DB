@@ -1,0 +1,6 @@
+".\Objects\STARTUP.obj",
+".\Objects\ADC_LDR_LED_Blinking_main.obj",
+".\Objects\lcd.obj",
+".\Objects\delay.obj" 
+TO ".\Objects\ADC_LDR_LED_Blinking" 
+PRINT(".\Listings\ADC_LDR_LED_Blinking.m51")

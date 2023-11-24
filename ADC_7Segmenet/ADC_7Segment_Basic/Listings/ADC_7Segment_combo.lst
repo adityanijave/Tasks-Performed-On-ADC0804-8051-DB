@@ -1,0 +1,104 @@
+C51 COMPILER V9.59.0.0   ADC_7SEGMENT_COMBO                                                11/25/2023 04:27:21 PAGE 1   
+
+
+C51 COMPILER V9.59.0.0, COMPILATION OF MODULE ADC_7SEGMENT_COMBO
+OBJECT MODULE PLACED IN .\Objects\ADC_7Segment_combo.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE ADC_7Segment_combo.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.
+                    -\Listings\ADC_7Segment_combo.lst) TABS(2) OBJECT(.\Objects\ADC_7Segment_combo.obj)
+
+line level    source
+
+   1          //including header libs
+   2          #include<reg51.h>
+   3          #include"delay.h"
+   4          
+   5          //micro decleration
+   6          #define ADC_port P2;
+   7          #define segmenet_port P3
+   8          
+   9          //special function register
+  10          //sfr ADC_port = 0xA0;
+  11          
+  12          //sbit decleration
+  13          sbit Rd   = P1^3;                         //Read pin
+  14          sbit Wr   = P1^4;                         //write pin
+  15          sbit INTR = P1^5;                         //INTR pin
+  16          sbit digit1 = P1^2;                       //7 segment pin (hunders)
+  17          sbit digit2 = P1^1;                       //7 segment pin (tens)
+  18          sbit digit3 = P1^0;                       //7 segment pin (units)
+  19          
+  20          
+  21          void segment_display(unsigned char);
+  22          
+  23          void main()                               //main function (1time exe.able)
+  24          {
+  25   1        
+  26   1        unsigned char ADC_value;                //ADC_value variable req. for ADC_port
+  27   1      
+  28   1        while(1)                                //forever loop (or we can use for(;;))
+  29   1        {
+  30   2          //reading adc values
+  31   2          Rd = 1;                               //Read pin is high
+  32   2          Wr = 0;                               //Write pin is low
+  33   2          delay(1);                             //calling delay function which is used here to create pluse
+  34   2          Wr = 1;                               //Write pin is high
+  35   2          while(INTR == 1);                     //if INTR pin is 1 then conversion is in process and if INTR is 0 then conve
+             -rsion is complate
+  36   2          Rd = 0;                               //Read pin is low
+  37   2          
+  38   2          ADC_value = ADC_port;                 //assigning the value of ADC_port to ADC_value variable (who's range is fr
+             -om 0 to 255
+  39   2            
+  40   2          segment_display(ADC_value);
+  41   2            
+  42   2        }
+  43   1      }
+  44          
+  45          void segment_display(unsigned char ADC_value)
+  46          {
+  47   1          unsigned int segmenet_array[10] = {0x3F, 0x06, 0x5B, 0x4F, 0x66, 0x6D, 0x7D, 0x07, 0x7F, 0x6F}; //hex va
+             -lues from 0 to 9
+  48   1          unsigned int i; 
+  49   1            
+  50   1          for(i = 0; i < 2; i++)
+  51   1          {
+C51 COMPILER V9.59.0.0   ADC_7SEGMENT_COMBO                                                11/25/2023 04:27:21 PAGE 2   
+
+  52   2            segmenet_port = segmenet_array[(ADC_value / 100)];
+  53   2            digit1 = 1;                         //hundereds place segment is ON 
+  54   2            digit2 = 0;                         //tens  place segment is OFF
+  55   2            digit3 = 0;                         //unit  place segment is OFF
+  56   2            
+  57   2            delay(1);                           //calling delay funcation with one
+  58   2            
+  59   2            //for tens place digit
+  60   2            segmenet_port = segmenet_array[((ADC_value / 10) % 10)];
+  61   2            digit1 = 0;                         //hundereds place segment is OFF
+  62   2            digit2 = 1;                         //tens  place segment is ON
+  63   2            digit3 = 0;                         //unit  place segment is OFF
+  64   2            
+  65   2            delay(1);                           //calling delay funcation with one
+  66   2            
+  67   2            //for units place digit
+  68   2            segmenet_port = segmenet_array[(ADC_value % 10)];
+  69   2            digit1 = 0;                         //hundereds place segment is OFF 
+  70   2            digit2 = 0;                         //tens  place segment is OFF
+  71   2            digit3 = 1;                         //unit  place segment is ON
+  72   2            
+  73   2            delay(1);                           //calling delay funcation with one
+  74   2          }
+  75   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    164    ----
+   CONSTANT SIZE    =     20    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----      24
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

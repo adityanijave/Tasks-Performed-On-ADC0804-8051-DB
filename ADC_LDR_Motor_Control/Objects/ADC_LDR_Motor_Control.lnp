@@ -1,0 +1,6 @@
+".\Objects\STARTUP.obj",
+".\Objects\ADC_LDR_Motor_Control_main.obj",
+".\Objects\delay.obj",
+".\Objects\lcd.obj" 
+TO ".\Objects\ADC_LDR_Motor_Control" 
+PRINT(".\Listings\ADC_LDR_Motor_Control.m51")

@@ -1,0 +1,6 @@
+".\Objects\STARTUP.obj",
+".\Objects\ADC_4bit_LCD_main_combo.obj",
+".\Objects\delay.obj",
+".\Objects\lcd.obj" 
+TO ".\Objects\ADC_4bit_LCD_main_combo" 
+PRINT(".\Listings\ADC_4bit_LCD_main_combo.m51")

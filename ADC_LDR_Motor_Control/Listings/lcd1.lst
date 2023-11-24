@@ -1,0 +1,89 @@
+C51 COMPILER V9.59.0.0   LCD1                                                              11/09/2023 00:11:19 PAGE 1   
+
+
+C51 COMPILER V9.59.0.0, COMPILATION OF MODULE LCD1
+OBJECT MODULE PLACED IN .\Objects\lcd1.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE lcd1.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\lcd1
+                    -.lst) TABS(2) OBJECT(.\Objects\lcd1.obj)
+
+line level    source
+
+   1          //including header file of lcd "lcd.h and delay "delay.h"
+   2          #include<reg51.h>
+   3          #include"lcd.h"
+   4          #include"delay.h"
+   5          
+   6          
+   7          // init() function defination
+   8          void init()                       
+   9          {
+  10   1        
+  11   1        delay(5);                       // delay
+  12   1        LCD_cmd(0x28);                  // 4 bit data (2 line)
+  13   1        LCD_cmd(0x0C);                  // display on and curser off
+  14   1        LCD_cmd(0x06);                  // entry mode
+  15   1      }
+  16          
+  17          // LCD_cmd() function defination with one argument "cmd"
+  18          void LCD_cmd(unsigned char cmd)
+  19          {
+  20   1        
+  21   1        RS = 0;                         //the register select is in active low mode for command
+  22   1        RW = 0;                         //open
+  23   1        
+  24   1        LCD_port = (cmd & 0xF0);        //assigning the value of cmd to  LCD_port
+  25   1        EN = 1;                         //creating pluse for EN (high)
+  26   1        delay(5);                       //delay for EN
+  27   1        EN = 0;                         //creating pluse for EN (low)
+  28   1        delay(5);                       //delay for EN
+  29   1        
+  30   1        LCD_port = ((cmd << 4) & 0xF0); //assigning the value of cmd to  LCD_port   (left shift by 4)
+  31   1        EN = 1;                         //creating pluse for EN (high)
+  32   1        delay(5);                       //delay for EN
+  33   1        EN = 0;                         //creating pluse for EN (low)
+  34   1        delay(5);                       //delay for EN
+  35   1      }
+  36          
+  37          // LCD_data() function defination with one argument "dat"
+  38          void LCD_data(unsigned char dat)
+  39          {
+  40   1        RS = 1;                         //the register select is in active high mode for data
+  41   1        RW = 0;                         //open
+  42   1        
+  43   1        LCD_port = (dat & 0xF0);        //assigning the value of dat to  LCD_port
+  44   1        EN = 1;                         //creating pluse for EN (high)
+  45   1        delay(5);                       //delay for EN
+  46   1        EN = 0;                         //creating pluse for EN (low)
+  47   1        delay(5);                       //delay for EN
+  48   1        
+  49   1        LCD_port = ((dat << 4)& 0xF0);    //assigning the value of dat to  LCD_port    (left shift by 4)
+  50   1        EN = 1;                         //creating pluse for EN (high)
+  51   1        delay(5);                       //delay for EN
+  52   1        EN = 0;                         //creating pluse for EN (low)
+  53   1        delay(5);                       //delay for EN
+  54   1      }
+C51 COMPILER V9.59.0.0   LCD1                                                              11/09/2023 00:11:19 PAGE 2   
+
+  55          
+  56          // LCD_string() function defination with one argument "*string"
+  57          void LCD_string(unsigned char *string)
+  58          {
+  59   1        while(*string)
+  60   1        {
+  61   2          LCD_data(*string++);
+  62   2        }
+  63   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    169    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----       5
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
